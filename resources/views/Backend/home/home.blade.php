@@ -13,7 +13,7 @@
         </div>
         <ul class="nav nav-tabs">
             <li class="active commonlitabforcash"><a data-toggle="tab" href="#tab1">Header</a></li>
-            <li class="commonlitabforcash"><a data-toggle="tab" href="#tab2">Institute</a></li>
+            <li class="commonlitabforcash"><a data-toggle="tab" href="#tab2">Our Institute</a></li>
             <li class="commonlitabforcash"><a data-toggle="tab" href="#tab3">Clients</a></li>
             <li class="commonlitabforcash"><a data-toggle="tab" href="#tab4">Expertise</a></li>
             <li class="commonlitabforcash"><a data-toggle="tab" href="#tab5">Video URL</a></li>
