@@ -124,7 +124,7 @@
                     <section class="content" id="institutetopref">
                     <div class="box box-info">
                             <div class="box-header with-border">
-                            <h3 class="box-title">Institute</h3>
+                            <h3 class="box-title">Institute Info</h3>
                             
                             </div>
                             {!!Form::open(['class' => 'form-horizontal','id'=>'institutetop','enctype'=>'multipart/form-data'])!!}
