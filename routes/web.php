@@ -30,6 +30,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('expertiseupdate','Backend\MmplhomeController@expertiseupdate')->name('expertise.update');
     Route::get('expertisedelete','Backend\MmplhomeController@expertisedelete')->name('expertise.delete');
     Route::post('videoupdate','Backend\MmplhomeController@videoupdate')->name('video.store');
+    Route::post('institutetopstore','Backend\MmplhomeController@institutetopstore')->name('institop.store');
+    Route::post('instimgstore','Backend\MmplhomeController@instimgstore')->name('instituteimg.store');
+    Route::get('instimgdelete','Backend\MmplhomeController@instimgdelete')->name('instimg.delete');
+
 
 });
 

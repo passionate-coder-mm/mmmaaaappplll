@@ -8,6 +8,8 @@ use App\Header;
 use App\Clients;
 use App\Expertise;
 use App\Video;
+use App\Institute;
+use App\Instituteimage;
 class MmplhomeController extends Controller
 {
     /**
@@ -22,6 +24,8 @@ class MmplhomeController extends Controller
         $data['clients'] = Clients::all();
         $data['expertise'] = Expertise::all();
         $data['video'] = Video::findorfail(1);
+        $data['institop'] = Institute::findorfail(1);
+        $data['instimg'] = Instituteimage::all();
        return view('Backend.home.home',compact('data'));
     }
 
@@ -135,6 +139,38 @@ class MmplhomeController extends Controller
         $video->save();
         return response()->json($video);
 
+    }
+    //institute
+    public function institutetopstore(Request $request)
+    {
+        $institute =  Institute::findorfail($request->id);
+        $institute->subtitle = $request->subtitle;
+        $institute->description = $request->description;
+        $institute->save();
+        return response()->json($institute);
+    }
+    public function instimgstore(Request $request){
+        if($request->file('image')){
+            foreach($request->file('image') as $image)
+            {
+                $new_name = rand() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('mmplimage'), $new_name);
+                $instImg = new Instituteimage();
+                $instImg->image ='mmplimage/'. $new_name;
+                $instImg->save();
+                $data[] = 'mmplimage/'. $new_name;
+            }
+            return response()->json($data);
+        }
+
+    }
+    public function instimgdelete(Request $request){
+        $id = $request->id;
+        $instimg = Instituteimage::find($id);
+        $unlink_img = $instimg->image;
+        $instimg->delete();
+        unlink($unlink_img);
+        return response()->json('deelted');
     }
 
     /**

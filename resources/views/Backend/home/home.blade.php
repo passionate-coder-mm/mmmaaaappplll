@@ -13,7 +13,7 @@
         </div>
         <ul class="nav nav-tabs">
             <li class="active commonlitabforcash"><a data-toggle="tab" href="#tab1">Header</a></li>
-            <li class="commonlitabforcash"><a data-toggle="tab" href="#tab2">Our Institute</a></li>
+            <li class="commonlitabforcash"><a data-toggle="tab" href="#tab2">Institute</a></li>
             <li class="commonlitabforcash"><a data-toggle="tab" href="#tab3">Clients</a></li>
             <li class="commonlitabforcash"><a data-toggle="tab" href="#tab4">Expertise</a></li>
             <li class="commonlitabforcash"><a data-toggle="tab" href="#tab5">Video URL</a></li>
@@ -121,31 +121,26 @@
                    </script>
               </div>
               <div id="tab2" class="tab-pane fade in ">
-                    <section class="content" id="institute">
+                    <section class="content" id="institutetopref">
                     <div class="box box-info">
                             <div class="box-header with-border">
-                            <h3 class="box-title">Header Text</h3>
+                            <h3 class="box-title">Institute</h3>
                             
                             </div>
-                            {!!Form::open(['class' => 'form-horizontal','id'=>'headertext','enctype'=>'multipart/form-data'])!!}
+                            {!!Form::open(['class' => 'form-horizontal','id'=>'institutetop','enctype'=>'multipart/form-data'])!!}
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="title" class="col-sm-2 control-label">Title One</label>
+                                    <label for="title" class="col-sm-2 control-label">Sub Title</label>
                                     <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="title_1" name="title_1" value="{{$data['header']->title_1}}">
-                                    <input type="hidden" class="form-control" id="id" name="id" value="{{$data['header']->id}}">
+                                    <input type="text" class="form-control" id="subtitle" name="subtitle" value="{{$data['institop']->subtitle}}">
+                                    <input type="hidden" class="form-control" id="id" name="id" value="{{$data['institop']->id}}">
                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="title" class="col-sm-2 control-label">Title Two</label>
-                                    <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="title_2" name="title_2" value="{{$data['header']->title_2}}">                
-                                    </div>
-                                </div>
+                
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Description</label>
                                     <div class="col-sm-8">
-                                    <textarea class="form-control" name="description" id="description" rows="5">{{$data['header']->description}}</textarea>
+                                    <textarea class="form-control" name="description" id="description" rows="5">{{$data['institop']->description}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -157,18 +152,14 @@
                     </section>
                     <script>
                          $(document).ready(function () {
-                            $('#headertext').validate({ 
+                            $('#institutetop').validate({ 
                                 rules: {
-                                    title_1: 
+                                    subtitle: 
                                     {
                                         required: true,
                                         
                                     },
-                                    title_2: 
-                                    {
-                                        required: true,
-                                        
-                                    },
+                                    
                                     description: 
                                     {
                                         required: true,
@@ -185,12 +176,12 @@
                                 },
                             });
                             });
-                            $(document).on('submit','#headertext',function(e){
+                            $(document).on('submit','#institutetop',function(e){
                                 e.preventDefault();
                                 //var data = $(this).serialize();
-                                if ($('#headertext').valid()) {
+                                if ($('#institutetop').valid()) {
                                 $.ajax({
-                                    url:"{!! route('mmplhome.store') !!}",
+                                    url:"{!! route('institop.store') !!}",
                                     method:"POST",
                                 data:new FormData(this),
                                 dataType:'JSON',
@@ -212,13 +203,155 @@
                                     toastr.success('Data Updated Successfully');
                                         
                             
-                                    $("#headerreftext").load(location.href + " #headerreftext");
+                                    $("#institutetopref").load(location.href + " #institutetopref");
                                     }
                                     
                                 });
                             }
                         })
                </script>
+               <section class="content" id="">
+                <div class="box box-info">
+                        <div class="box-header with-border">
+                        <h3 class="box-title">Institute Photo</h3>
+                        
+                        </div>
+                        {!!Form::open(['class' => 'form-horizontal','id'=>'instituteimage','enctype'=>'multipart/form-data'])!!}
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Image</label>
+                                <div class="col-sm-8">
+                                <input type="file" multiple="multiple" class="form-control images" id="" name="image[]">
+                               </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-info" id="instimg">Submit</button>
+                        </div>
+                        {!!Form::close()!!}
+                    </div>
+                </section>
+                <section class="content">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <div class="box box-info">
+                              <div class="box-header">
+                                <h3 class="box-title">Image list</h3>
+                                 <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                                  </div>
+                                 </div>
+                              <div class="box-body">
+                                <table id="imgref" class="table table-bordered table-striped instimgprepend">
+                                  <thead>
+                                  <tr>
+                                    <th width="20%">Created At</th>
+                                    <th width="20%">Photo</th>
+                                    <th width="15%">Action</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody class="">
+                                    @foreach($data['instimg'] as $instimg)
+                                   <tr class='unqinstimg{{$instimg->id}}'>
+                                       <td>{{$instimg->created_at}}</td>
+                                       <td><img src="{{url('/'.$instimg->image)}}" width="150" height="70"></td>
+                                      
+                                        <td>
+                                            <a class="deleteinstimg" data-id ="{{$instimg->id}}"><span class="glyphicon glyphicon-trash btn btn-danger btn-sm"></span></a>
+                                        </td>
+                                    </tr>
+                                  @endforeach
+                                  </tbody>
+                                </table>
+                              </div>
+                              <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                    </section>
+                <script>
+                    
+                    $(document).on('submit','#instituteimage',function(e){
+                                e.preventDefault();
+                                var base_url = $('#client').find('#path').val();
+                                var count_of = $('.images').get(0).files.length;
+                                if(count_of < 1){
+                                    alert('Please Browse For Image');
+                                }else{
+                                    //console.log(count_of);
+                                $.ajax({
+                                url:"{!! route('instituteimg.store') !!}",
+                                method:"POST",
+                                data:new FormData(this),
+                                dataType:'JSON',
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                    success:function(data)
+                                    {
+                                    console.log(data);
+                                    toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-bottom-right",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                            };
+                                    toastr.success('Data Updated Successfully');
+                                    $("#imgref").load(location.href + " #imgref");
+                                    // $.each(data, function (index ,imageobj) {
+                                    //     $('.instimgprepend').prepend(`<tr class='unqinstimg`+imageobj.id+`'>
+                                    //     <td>`+imageobj.created_at+`</td>
+                                    //     <td><img src="`+base_url+`/`+imageobj.image+`" width="150" height="70"></td>
+                                        
+                                    //     <td>
+                                    //         <a class="deleteinstimg" data-id ="`+imageobj.id+`" ><span class="glyphicon glyphicon-trash btn btn-danger btn-sm"></span></a>
+                                    //     </td>
+                                    //     </tr>`);
+                                    // })
+                                    }
+                                    
+                                });
+                                }    
+                        })
+                        $(document).on('click','.deleteinstimg',function(e) {
+                        e.preventDefault();
+                        var id = $(this).data('id');
+                        //alert(role);
+                        Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!',
+                        
+                        }).then(result => {
+                        
+                        if (result.value) {
+                            $.ajax({
+                            url: "{!! route('instimg.delete') !!}",
+                            type: "get", 
+                            data: {  
+                                id: id, 
+                            },
+                            success: function(data) {
+                                }
+                            });
+                            
+                            $(this).closest('tr').hide();
+                            
+                        }
+                        }
+                    )
+                });
+                </script>
             </div>
               <div id="tab3" class="tab-pane fade in">
                     <section class="content">
